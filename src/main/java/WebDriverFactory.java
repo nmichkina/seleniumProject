@@ -27,7 +27,7 @@ public class WebDriverFactory {
     WebDriver driver = null;
 
     if (browserName.toLowerCase().contains("firefox")) {
-      WebDriverManager.firefoxdriver().setup();
+      WebDriverManager.firefoxdriver().setup(); // Аналог - System.setProperty("webdriver.chrome.driver","D:\List_of_Jar\chromedriver.exe"); и руками не кладем фафлик в папку
       driver = new FirefoxDriver();
     } else if (browserName.toLowerCase().contains("internet")) {
       WebDriverManager.iedriver().setup();
