@@ -32,13 +32,13 @@ public class LoginTest {
     driver.findElement(By.id("login")).click();
 
     // Explicit Wait for element to appear
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1).getSeconds());
-    assertEquals(wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'Activity Stream')]"))).isDisplayed(), true);
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
+    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'Activity Stream')]"))).isDisplayed();
+    assertEquals(elementIsPresent, true);
 
     driver.findElement(By.id("create_link")).click();
     assertEquals(wait.until(presenceOfElementLocated(By.id("issuetype-single-select"))).isDisplayed(), true);
     driver.findElement(By.id("summary")).sendKeys("Test Summary");
-
 
 
     // bad wait
