@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -41,11 +42,11 @@ public class LoginTest {
 
 
     // bad wait
-    //    try {
-    //      Thread.sleep(3000);
-    //    } catch (InterruptedException e) {
-    //      e.printStackTrace();
-    //    }
+  //    try {
+  //      Thread.sleep(3000);
+  //    } catch (InterruptedException e) {
+  //      e.printStackTrace();
+  //    }
 
   }
 
@@ -53,6 +54,64 @@ public class LoginTest {
   public void failedTest() {
     driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     assertEquals(1, 2);
+  }
+
+
+  @Test
+  public void createIssue() {
+    driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
+    driver.findElement(By.id("login-form-username")).sendKeys("IrynaKapustina");
+    driver.findElement(By.id("login-form-password")).sendKeys("IrynaKapustina");
+    driver.findElement(By.id("login")).click();
+
+    // Explicit Wait for element to appear
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30).getSeconds());
+    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.id("create_link"))).isEnabled();
+    assertEquals(elementIsPresent, true);
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    driver.findElement(By.id("create_link")).click();
+
+
+    wait.until(presenceOfElementLocated(By.id("project-field"))).isDisplayed();
+    driver.findElement(By.id("project-field")).clear();
+    driver.findElement(By.id("project-field")).sendKeys("Webinar (WEBINAR)");
+    driver.findElement(By.id("project-field")).sendKeys(Keys.TAB);
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    driver.findElement(By.id("issuetype-field")).clear();
+    driver.findElement(By.id("issuetype-field")).sendKeys("Задача");
+    driver.findElement(By.id("issuetype-field")).sendKeys(Keys.TAB);
+
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    driver.findElement(By.id("summary")).sendKeys("Some summary1");
+    driver.findElement(By.id("reporter-field")).clear();
+    driver.findElement(By.id("reporter-field")).sendKeys("IrynaKapustina");
+    driver.findElement(By.id("reporter-field")).sendKeys(Keys.TAB);
+    driver.findElement(By.id("create-issue-submit")).click();
+
+
+    // Explicit Wait for element to appear
+    //wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
+    boolean popUpIsPresent = wait.until(presenceOfElementLocated(By.className("aui-message-success"))).isDisplayed();
+    assertEquals(popUpIsPresent, true);
+
+    //aui-flag-container
   }
 
   @AfterMethod
