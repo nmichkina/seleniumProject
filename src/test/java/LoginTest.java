@@ -1,14 +1,14 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 import utils.WebDriverFactory;
 
 import java.time.Duration;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -16,21 +16,25 @@ import static org.testng.Assert.assertTrue;
 public class LoginTest {
 
   WebDriver driver = null;
+  LoginPage loginPage = null;
 
   @BeforeMethod
   public void setUp() {
     // любой Java Code
     WebDriverFactory.createInstance("Chrome");
     driver = WebDriverFactory.getDriver();
+
+    loginPage = new LoginPage(driver);
   }
 
-  @Test
-  public void successfulLoginTest() {
-    driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
-    driver.findElement(By.id("login-form-username")).sendKeys("Artur Piluck");
-    driver.findElement(By.id("login-form-password")).sendKeys("12345qx");
-    driver.findElement(By.id("login")).click();
 
+  public void successfulLoginTest() {
+    loginPage.navigateTo();
+    loginPage.enterUserName("Artur Piluck");
+    loginPage.enterPassword("12345qx");
+    loginPage.clickLogin();
+
+    // TODO wrap in PO
     // Explicit Wait for element to appear
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
     boolean elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'Activity Stream')]"))).isDisplayed();
@@ -42,11 +46,11 @@ public class LoginTest {
 
 
     // bad wait
-  //    try {
-  //      Thread.sleep(3000);
-  //    } catch (InterruptedException e) {
-  //      e.printStackTrace();
-  //    }
+    //    try {
+    //      Thread.sleep(3000);
+    //    } catch (InterruptedException e) {
+    //      e.printStackTrace();
+    //    }
 
   }
 
@@ -66,7 +70,7 @@ public class LoginTest {
 
     // Explicit Wait for element to appear
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30).getSeconds());
-    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.id("create_link"))).isEnabled();
+    boolean elementIsPresent = wait.until(elementToBeClickable(By.id("create_link"))).isEnabled();
     assertEquals(elementIsPresent, true);
 
     try {
@@ -116,6 +120,7 @@ public class LoginTest {
 
   @AfterMethod
   public void tearDown() {
+
     driver.quit();
   }
 }

@@ -24,14 +24,6 @@ public class WebDriverFactory {
     return webDriver;
   }
 
-  public static void setWebDriver(WebDriver driver) {
-    webDriver = driver;
-  }
-
-  public static void closeDriver() {
-    webDriver.quit();
-  }
-
   public static void createInstance(String browserName) {
 
     DesiredCapabilities capability = null;
@@ -46,14 +38,16 @@ public class WebDriverFactory {
     } else if (browserName.toLowerCase().contains("chrome")) {
 //      WebDriverManager.chromedriver().version("78.0.3904.70").setup();
       WebDriverManager.chromedriver().setup();
-      driver = new ChromeDriver();
+      capability.setAcceptInsecureCerts(true);
+      driver = new ChromeDriver(capability);
+
     } else {
       driver = new ChromeDriver();
     }
 
     driver.manage().window().maximize();
     // Implicit Wait. Will wait constant amount of time for every element.
-  //  driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
+    //  driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
 
     // Simulate slow network speed - network throttle
 
@@ -73,5 +67,15 @@ public class WebDriverFactory {
 
     webDriver = driver;
   }
+
+//  public static void setWebDriver(WebDriver driver) {
+//    webDriver = driver;
+//  }
+//
+//  public static void closeDriver() {
+//    webDriver.quit();
+//  }
+
+
 
 }
