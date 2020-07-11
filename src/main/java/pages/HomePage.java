@@ -46,6 +46,7 @@ public class HomePage {
             }
             // break - прервёт только цикл
         }
+        
     }
 
     public boolean isCreateIssueButtonPresent() {
