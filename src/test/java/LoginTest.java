@@ -27,8 +27,8 @@ public class LoginTest {
   @Test
   public void successfulLoginTest() {
     driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
-    driver.findElement(By.id("login-form-username")).sendKeys("Artur Piluck");
-    driver.findElement(By.id("login-form-password")).sendKeys("12345qx");
+    driver.findElement(By.id("login-form-username")).sendKeys("webinar5");
+    driver.findElement(By.id("login-form-password")).sendKeys("webinar5");
     driver.findElement(By.id("login")).click();
 
     // Explicit Wait for element to appear
@@ -60,8 +60,8 @@ public class LoginTest {
   @Test
   public void createIssue() {
     driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
-    driver.findElement(By.id("login-form-username")).sendKeys("IrynaKapustina");
-    driver.findElement(By.id("login-form-password")).sendKeys("IrynaKapustina");
+    driver.findElement(By.id("login-form-username")).sendKeys("webinar5");
+    driver.findElement(By.id("login-form-password")).sendKeys("webinar5");
     driver.findElement(By.id("login")).click();
 
     // Explicit Wait for element to appear
@@ -90,7 +90,7 @@ public class LoginTest {
     }
 
     driver.findElement(By.id("issuetype-field")).clear();
-    driver.findElement(By.id("issuetype-field")).sendKeys("Задача");
+    driver.findElement(By.id("issuetype-field")).sendKeys("task");
     driver.findElement(By.id("issuetype-field")).sendKeys(Keys.TAB);
 
     try {
@@ -101,7 +101,7 @@ public class LoginTest {
 
     driver.findElement(By.id("summary")).sendKeys("Some summary1");
     driver.findElement(By.id("reporter-field")).clear();
-    driver.findElement(By.id("reporter-field")).sendKeys("IrynaKapustina");
+    driver.findElement(By.id("reporter-field")).sendKeys("webinar5");
     driver.findElement(By.id("reporter-field")).sendKeys(Keys.TAB);
     driver.findElement(By.id("create-issue-submit")).click();
 
@@ -111,11 +111,14 @@ public class LoginTest {
     boolean popUpIsPresent = wait.until(presenceOfElementLocated(By.className("aui-message-success"))).isDisplayed();
     assertEquals(popUpIsPresent, true);
 
+    boolean titleIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'WEBINAR')]"))).isDisplayed();
+    assertEquals(titleIsPresent,true);
+
     //aui-flag-container
   }
 
   @AfterMethod
-  public void tearDown() {
-    driver.quit();
+
+  public void tearDown() { driver.quit();
   }
 }

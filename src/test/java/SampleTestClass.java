@@ -24,8 +24,9 @@ public class SampleTestClass {
     driver.findElement(By.cssSelector("input[name='q']")).sendKeys(Keys.ENTER);
 
     assert driver.findElement(By.xpath("//*[contains(text(), 'Artur')]")).isDisplayed();
-    // TODO - возвращает пустую строку - driver.findElements(By.xpath("//*[contains(text(), 'Артур')]")).get(1).getText()
-    //    assert driver.findElement(By.cssSelector("input[name='q']")).getAttribute();
+    // TODO - возвращает пустую строку -
+      //driver.findElements(By.xpath("//*[contains(text(), 'Артур')]")).get(1).getText();
+      //assert driver.findElement(By.cssSelector("input[name='q']")).getAttribute();
   }
 
     @AfterTest()

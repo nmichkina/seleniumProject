@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalTime;
 
 public class TestNGListener implements ITestListener {
 
@@ -35,7 +36,8 @@ public class TestNGListener implements ITestListener {
     File screenshot = captureScreenshot();
     Path pathToScreenShot = Paths.get(screenshot.getPath());
     try {
-      String screenshotName = screenshotsFolder + "/" + "Screenshot_" + java.time.LocalTime.now() + ".png";
+      String screenshotName = screenshotsFolder + "/" + "Screenshot_" +
+              String.format(LocalTime.now().toString().replace(":", "-"), "2018-09-13 00-00")+ ".png";
       Files.copy(pathToScreenShot, Paths.get(screenshotName), StandardCopyOption.COPY_ATTRIBUTES);
     } catch (IOException e) {
       e.printStackTrace();
