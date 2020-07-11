@@ -1,8 +1,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Sample Test Suite" parallel="false">
+
+
+    <listeners>
+        <listener class-name="utils.TestNGListener"/>
+    </listeners>
+    
     <test name="Sample Test">
         <classes>
-            <class name="SampleTestClass"/>
+            <class name="SampleTestClass">
+                <methods>
+                    <include name="failOnPurpose"/>
+                </methods>
+            </class>
         </classes>
     </test>
+
+
 </suite>
