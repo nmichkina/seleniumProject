@@ -25,4 +25,8 @@ public class LoginPage {
     public void navigateTo() {
         driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     }
+
+    public boolean errorMessageIsPresent(String message) {
+        return driver.findElement(By.xpath("//*[contains(text()," + message + " )]")).isDisplayed();
+    }
 }
