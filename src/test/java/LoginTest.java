@@ -21,9 +21,7 @@ public class LoginTest {
   @BeforeMethod
   public void setUp() {
     // любой Java Code
-    WebDriverFactory.createInstance("Chrome");
     driver = WebDriverFactory.getDriver();
-
     loginPage = new LoginPage(driver);
   }
 
@@ -59,7 +57,6 @@ public class LoginTest {
     driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     assertEquals(1, 2);
   }
-
 
   @Test
   public void createIssue() {
@@ -118,9 +115,4 @@ public class LoginTest {
     //aui-flag-container
   }
 
-  @AfterMethod
-  public void tearDown() {
-
-    driver.quit();
-  }
 }

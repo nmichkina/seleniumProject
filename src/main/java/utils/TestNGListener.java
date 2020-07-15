@@ -5,6 +5,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,7 +17,9 @@ public class TestNGListener implements ITestListener {
 
   @Override
   public void onTestStart(ITestResult result) {
-
+    // не сработает - result.getTestContext().getSuite().getParameter("browserName");
+    String browserName = result.getTestContext().getCurrentXmlTest().getParameter("browserName");
+    WebDriverFactory.createInstance(browserName);
   }
 
   @Override
@@ -40,6 +43,7 @@ public class TestNGListener implements ITestListener {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    WebDriverFactory.getDriver().quit();
   }
 
   @Override
@@ -59,7 +63,7 @@ public class TestNGListener implements ITestListener {
 
   @Override
   public void onFinish(ITestContext context) {
-
+    WebDriverFactory.getDriver().quit();
   }
 
   private File captureScreenshot() {
