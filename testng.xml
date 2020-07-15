@@ -6,7 +6,7 @@
         <parameter name="browserName" value="Firefox"/>
 
         <classes>
-            <class name="LoginTest"/>
+            <class name="TestWithParameters"/>
         </classes>
     </test>
 

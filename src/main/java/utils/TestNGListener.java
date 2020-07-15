@@ -17,8 +17,8 @@ public class TestNGListener implements ITestListener {
 
   @Override
   public void onTestStart(ITestResult result) {
-    // не сработает - result.getTestContext().getSuite().getParameter("browserName");
     String browserName = result.getTestContext().getCurrentXmlTest().getParameter("browserName");
+    System.out.println("Listener. Browser name is " + browserName);
     WebDriverFactory.createInstance(browserName);
   }
 
@@ -63,7 +63,7 @@ public class TestNGListener implements ITestListener {
 
   @Override
   public void onFinish(ITestContext context) {
-    WebDriverFactory.getDriver().quit();
+     WebDriverFactory.getDriver().quit();
   }
 
   private File captureScreenshot() {
