@@ -35,8 +35,8 @@ public class WebDriverFactory {
       WebDriverManager.iedriver().setup();
       driver = new InternetExplorerDriver();
     } else if (browserName.toLowerCase().contains("chrome")) {
-//      WebDriverManager.chromedriver().version("78.0.3904.70").setup();
-      WebDriverManager.chromedriver().setup();
+      WebDriverManager.chromedriver().version("84.0.4147.30").setup();
+      // WebDriverManager.chromedriver().setup();
       driver = new ChromeDriver();
     } else {
       driver = new ChromeDriver();
