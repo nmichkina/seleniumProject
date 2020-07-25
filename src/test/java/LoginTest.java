@@ -19,9 +19,12 @@ public class LoginTest {
   WebDriver driver = null;
   LoginPage loginPage = null;
 
+  @Parameters({"browserName"})
   @BeforeMethod
-  public void setUp() {
-    // любой Java Code
+  public void setUp(String browserName) {
+    System.out.println("Listener. Browser name is " + browserName);
+    WebDriverFactory.createInstance(browserName);
+
     driver = WebDriverFactory.getDriver();
     loginPage = new LoginPage(driver);
   }
