@@ -29,11 +29,15 @@ public class LoginTest {
     loginPage = new LoginPage(driver);
   }
 
+  public void tearDown(){
+    WebDriverFactory.getDriver().quit();
+  }
+
   @Test
   public void successfulLoginTest() {
     loginPage.navigateTo();
-    loginPage.enterUserName("Artur Piluck");
-    loginPage.enterPassword("12345qx");
+    loginPage.enterUserName("webinar5");
+    loginPage.enterPassword("webinar5");
     loginPage.clickLogin();
 
     // TODO wrap in PO
@@ -56,17 +60,17 @@ public class LoginTest {
 
   }
 
-  @Test
-  public void failedTest() {
-    driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
-    assertEquals(1, 2);
-  }
+//  @Test
+//  public void failedTest() {
+//    driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
+//    assertEquals(1, 2);
+//  }
 
   @Test
   public void createIssue() {
     driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
-    driver.findElement(By.id("login-form-username")).sendKeys("IrynaKapustina");
-    driver.findElement(By.id("login-form-password")).sendKeys("IrynaKapustina");
+    driver.findElement(By.id("login-form-username")).sendKeys("webinar5");
+    driver.findElement(By.id("login-form-password")).sendKeys("webinar5");
     driver.findElement(By.id("login")).click();
 
     // Explicit Wait for element to appear

@@ -26,7 +26,6 @@ public class WebDriverFactory {
 
   public static void createInstance(String browserName) {
 
-    DesiredCapabilities capability = null;
     WebDriver driver = null;
 
     if (browserName.toLowerCase().contains("firefox")) {
@@ -38,44 +37,13 @@ public class WebDriverFactory {
     } else if (browserName.toLowerCase().contains("chrome")) {
 //      WebDriverManager.chromedriver().version("78.0.3904.70").setup();
       WebDriverManager.chromedriver().setup();
-      capability.setAcceptInsecureCerts(true);
-      driver = new ChromeDriver(capability);
-
+      driver = new ChromeDriver();
     } else {
       driver = new ChromeDriver();
     }
 
     driver.manage().window().maximize();
-    // Implicit Wait. Will wait constant amount of time for every element.
-    //  driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
-
-    // Simulate slow network speed - network throttle
-
-    Map<String, String> map = new HashMap<>();
-    map.put("offline", "false");
-    map.put("latency", "10");
-    map.put("download_throughput", "1024");
-    map.put("upload_throughput", "1024");
-    CommandExecutor executor = ((ChromeDriver) driver).getCommandExecutor();
-    try {
-      Response response = executor.execute(
-          new Command(((ChromeDriver) driver).getSessionId(), "setNetworkConditions", ImmutableMap.of("network_conditions", ImmutableMap.copyOf(map)))
-      );
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
     webDriver = driver;
   }
-
-//  public static void setWebDriver(WebDriver driver) {
-//    webDriver = driver;
-//  }
-//
-//  public static void closeDriver() {
-//    webDriver.quit();
-//  }
-
-
 
 }

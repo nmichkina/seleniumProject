@@ -3,7 +3,7 @@
 
     <test name="Sample Test">
 
-        <parameter name="browserName" value="Firefox"/>
+        <parameter name="browserName" value="chrome"/>
 
         <classes>
             <class name="LoginTest"/>
