@@ -29,6 +29,7 @@ public class LoginTest {
     loginPage = new LoginPage(driver);
   }
 
+  @AfterMethod
   public void tearDown(){
     WebDriverFactory.getDriver().quit();
   }
