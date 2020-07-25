@@ -34,32 +34,32 @@ public class LoginTest {
     WebDriverFactory.getDriver().quit();
   }
 
-  @Test
-  public void successfulLoginTest() {
-    loginPage.navigateTo();
-    loginPage.enterUserName("webinar5");
-    loginPage.enterPassword("webinar5");
-    loginPage.clickLogin();
-
-    // TODO wrap in PO
-    // Explicit Wait for element to appear
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
-    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'Activity Stream')]"))).isDisplayed();
-    assertEquals(elementIsPresent, true);
-
-    driver.findElement(By.id("create_link")).click();
-    assertEquals(wait.until(presenceOfElementLocated(By.id("issuetype-single-select"))).isDisplayed(), true);
-    driver.findElement(By.id("summary")).sendKeys("Test Summary");
-
-
-    // bad wait
-    //    try {
-    //      Thread.sleep(3000);
-    //    } catch (InterruptedException e) {
-    //      e.printStackTrace();
-    //    }
-
-  }
+//  @Test
+//  public void successfulLoginTest() {
+//    loginPage.navigateTo();
+//    loginPage.enterUserName("webinar5");
+//    loginPage.enterPassword("webinar5");
+//    loginPage.clickLogin();
+//
+//    // TODO wrap in PO
+//    // Explicit Wait for element to appear
+//    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
+//    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'Activity Stream')]"))).isDisplayed();
+//    assertEquals(elementIsPresent, true);
+//
+//    driver.findElement(By.id("create_link")).click();
+//    assertEquals(wait.until(presenceOfElementLocated(By.id("issuetype-single-select"))).isDisplayed(), true);
+//    driver.findElement(By.id("summary")).sendKeys("Test Summary");
+//
+//
+//    // bad wait
+//    //    try {
+//    //      Thread.sleep(3000);
+//    //    } catch (InterruptedException e) {
+//    //      e.printStackTrace();
+//    //    }
+//
+//  }
 
 //  @Test
 //  public void failedTest() {
