@@ -2,8 +2,10 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage  {
+public class LoginPage {
 
     private WebDriver driver;
 
@@ -27,5 +29,10 @@ public class LoginPage  {
         driver.findElement(loginButton).click();
     }
 
-
+    public boolean errorMessageIsPresent(String message) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),\'" + message + "\')]")));
+        return driver.findElement(By.xpath("//*[contains(text(),\'" + message + "\')]")).isDisplayed();
+    }
+    
 }

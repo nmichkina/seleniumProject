@@ -6,27 +6,20 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.Parameters;
 
 public class WebDriverFactory {
 
-    private static WebDriver webDriver;
+    private static final ThreadLocal<WebDriver> webDriver = new ThreadLocal<>();
 
     public static WebDriver getDriver() {
-        return webDriver;
-    }
-
-    public static void setWebDriver(WebDriver driver) {
-        webDriver = driver;
-    }
-
-    public static void closeDriver() {
-        webDriver.quit();
+        return webDriver.get();
     }
 
     public static void createInstance(String browserName) {
 
         DesiredCapabilities capability = null;
-        WebDriver driver = null;
+        WebDriver driver;
 
         if (browserName.toLowerCase()
                 .contains("firefox")) {
@@ -50,7 +43,7 @@ public class WebDriverFactory {
         driver.manage()
                 .window()
                 .maximize();
-        webDriver = driver;
+        webDriver.set(driver);
     }
 
 }

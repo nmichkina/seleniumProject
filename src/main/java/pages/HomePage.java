@@ -8,18 +8,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
-    private WebDriver driver = null;
+    private WebDriver driver;
 
     private By createIssueButton = By.id("create_link");
     private By tempWindowIssueCreated = By.xpath("//*[contains(@class,'aui-will-close')]");
-    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']");
+    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']"); // locator from another page, breaks logic
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void navigateToHomePage() {
-        driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
+            driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     }
 
     public boolean isUserIconDisplayed() {
@@ -28,15 +28,12 @@ public class HomePage {
     }
 
     public void clickCreateIssue() {
-
         clickOnElementWithRetry(createIssueButton, createIssueTitle, 3, 3);
-
     }
 
     private void clickOnElementWithRetry(By elementToBeClicked, By successCriteriaElement, int attempts, int timeOutInSeconds){
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
         for (int i = 0; i < attempts; i++) {
-           // driver.findElement(elementToBeClicked).click();
             try{
                 wait.until(ExpectedConditions.visibilityOfElementLocated(successCriteriaElement)).isDisplayed();
                 break;
@@ -44,20 +41,7 @@ public class HomePage {
                 wait.until(ExpectedConditions.elementToBeClickable(elementToBeClicked));
                 driver.findElement(elementToBeClicked).click();
             }
-            // break - прервёт только цикл
         }
-        
-    }
-
-    public boolean isCreateIssueButtonPresent() {
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        return wait.until(ExpectedConditions.elementToBeClickable(By.id("create_link"))).isDisplayed();
-        // return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='activity-item jira-activity-item']"))).isDisplayed();
     }
 
     public boolean isIssueCreated() {

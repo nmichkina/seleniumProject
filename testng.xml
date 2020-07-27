@@ -1,20 +1,22 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Sample Test Suite" parallel="false">
+<suite name="Sample Test Suite" parallel="classes" thread-count="2">
 
-
+    <parameter name="browserName" value="Chrome"></parameter>
+    
     <listeners>
         <listener class-name="utils.TestNGListener"/>
     </listeners>
     
     <test name="Sample Test">
         <classes>
-            <class name="SampleTestClass">
-                <methods>
-                    <include name="failOnPurpose"/>
-                </methods>
-            </class>
+            <class name="EmptyTestClass1"/>
+            <class name="EmptyTestClass2"/>
+<!--                <methods>-->
+<!--                    <include name="successfulLoginTest"/>-->
+<!--                    <include name="unsuccessfulLoginTest"/>-->
+<!--                </methods>-->
+<!--            </class>-->
         </classes>
     </test>
-
 
 </suite>

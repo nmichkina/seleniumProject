@@ -6,12 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.WebDriverFactory;
 
 import java.util.List;
 
 public class JiraTicketPage {
 
-    private WebDriver driver = null;
+    private WebDriver driver;
 
     private By commentButton = By.id("footer-comment-button");
     private By commentField = By.id("comment");
@@ -74,20 +75,11 @@ public class JiraTicketPage {
         driver.findElement(deleteDialogButton).click();
     }
 
-    public void isCommentSectionDisplayed() {
-        try {
-            Thread.sleep(3000); // Ещё один исключительный случай
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        WebDriverWait wait = new WebDriverWait(driver,10);
-//        return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@title='Components']"))).isDisplayed();
+    public boolean isLastCommentDeleted() {
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'aui-message closeable aui-message-success aui-will-close']")));
+
+        return driver.findElements(justNowElement).size() == 0;
     }
 
-    public boolean isLastCommentDeleted() {
-        if (driver.findElements(justNowElement).size() == 0)
-            return true;
-        else
-            return false;
-    }
 }

@@ -7,13 +7,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CreateIssueWindow {
-    private WebDriver driver = null;
+    private WebDriver driver;
 
     private By projectField = By.id("project-field");
     private By issueTypeField = By.id("issuetype-field");
     private By summaryField = By.id("summary");
     private By reporterField = By.id("reporter-field");
     private By createIssueButton = By.id("create-issue-submit");
+    private By createIssueTitle = By.xpath("//h2[@title='Create Issue']");
 
     public CreateIssueWindow(WebDriver driver) {
         this.driver = driver;

@@ -1,7 +1,9 @@
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.CreateIssueWindow;
 import pages.HomePage;
@@ -19,9 +21,10 @@ public class TestClass {
     private JiraTicketPage jiraTicketPage;
     private CreateIssueWindow createIssueWindow;
 
-    @BeforeTest()
-    public void setUp() {
-        WebDriverFactory.createInstance("Chrome");
+    @Parameters({"browserName"})
+    @BeforeMethod()
+    public void setUp(String browserName) {
+        WebDriverFactory.createInstance(browserName);
         driver = WebDriverFactory.getDriver();
         loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
@@ -37,6 +40,24 @@ public class TestClass {
         loginPage.clickLoginButton();
 
         assertTrue(homePage.isUserIconDisplayed());
+    }
+
+    @Test(dataProvider = "LoginTest")
+    public void unsuccessfulLoginTest(String name, String password, String expectedResult) {
+        homePage.navigateToHomePage();
+        loginPage.enterUserName(name);
+        loginPage.enterPassword(password);
+        loginPage.clickLoginButton();
+
+        Assert.assertTrue(loginPage.errorMessageIsPresent(expectedResult));
+    }
+
+    @DataProvider(name = "LoginTest")
+    public Object[][] LoginData() {
+        return new Object[][]{
+                {"VyacheslavArtyomenko", "", "Sorry, your username and password are incorrect - please try again"},
+                {"", "VyacheslavArtyomenko", "Sorry, your username and password are incorrect - please try again"},
+        };
     }
 
     @Test
@@ -57,7 +78,6 @@ public class TestClass {
         loginPage.enterPassword("VyacheslavArtyomenko");
         loginPage.clickLoginButton();
 
-        homePage.isCreateIssueButtonPresent();   // TODO
         homePage.clickCreateIssue();
 
         createIssueWindow.isProjectFieldDisplayed();
@@ -97,7 +117,6 @@ public class TestClass {
         jiraTicketPage.isDeleteDialogButtonDisplayed();
         jiraTicketPage.clickDeleteDialogButton();
 
-        jiraTicketPage.isCommentSectionDisplayed(); // TODO
         Assert.assertTrue(jiraTicketPage.isLastCommentDeleted());
 
         System.out.println("Done");
@@ -106,7 +125,7 @@ public class TestClass {
     @Test
     public void failOnPurpose() {
         driver.get("https://www.google.com.ua/?hl=ru");
-        Assert.assertTrue(false);
+        Assert.fail();
     }
 
     @AfterMethod
