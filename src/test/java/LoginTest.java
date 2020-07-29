@@ -68,6 +68,19 @@ public class LoginTest {
 //  }
 
   @Test
+  public void loginTest(){
+    driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
+    driver.findElement(By.id("login-form-username")).sendKeys("webinar5");
+    driver.findElement(By.id("login-form-password")).sendKeys("webinar5");
+    driver.findElement(By.id("login")).click();
+
+    // Explicit Wait for element to appear
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30).getSeconds());
+    boolean elementIsPresent = wait.until(elementToBeClickable(By.id("create_link"))).isEnabled();
+    assertEquals(elementIsPresent, true);
+  }
+
+  // @Test
   public void createIssue() {
     driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     driver.findElement(By.id("login-form-username")).sendKeys("webinar5");
