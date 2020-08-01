@@ -9,8 +9,7 @@ import utils.WebDriverFactory;
 import java.time.Duration;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class AddCommentToJIRATicket {
 
@@ -36,19 +35,29 @@ public class AddCommentToJIRATicket {
       e.printStackTrace();
     }
     driver.get("https://jira.hillel.it/browse/WEBINAR-12148");
-    /*assertTrue(driver.findElement(By.id("issuedetails")).isDisplayed());
-    assertTrue(driver.getCurrentUrl().contains("12148"));*/
-    driver.findElement(By.name("add-comment")).click();
-    driver.findElement(By.id("tinymce")).sendKeys("New comment");
+    driver.findElement(By.id("footer-comment-button")).click();
+    driver.findElement(By.id("comment")).sendKeys("New comment");
     driver.findElement(By.id("issue-comment-add-submit")).click();
 
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5).getSeconds());
-    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'New comment')]"))).isDisplayed();
+      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
+      boolean elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'New comment')]"))).isDisplayed();
     assertEquals(elementIsPresent, true);
 
+    driver.findElement(By.xpath("//span[@class='icon-default aui-icon aui-icon-small aui-iconfont-delete']")).click();
+    wait = new WebDriverWait(driver,Duration.ofSeconds(5).getSeconds());
+
+    wait.until(presenceOfElementLocated(By.id("comment-delete-submit"))).isDisplayed();
+    driver.findElement(By.id("comment-delete-submit")).click();
+
+    try {
+          Thread.sleep(3000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+    elementIsPresent = wait.until(presenceOfElementLocated(By.xpath("//div[@class='aui-message closeable aui-message-success aui-will-close']"))).isDisplayed();
+    assertEquals(elementIsPresent, true);
   }
-
-
 
   @AfterMethod
   public void tearDown() {
@@ -56,5 +65,3 @@ public class AddCommentToJIRATicket {
   }
 }
 
-//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30).getSeconds());
-//    boolean elementIsPresent = wait.until(elementToBeClickable(By.id("create_link"))).isEnabled();

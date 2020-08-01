@@ -1,7 +1,5 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,13 +7,10 @@ import pages.HomePage;
 import pages.LoginPage;
 import utils.WebDriverFactory;
 
-import java.time.Duration;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class LoginTest {
+public class FailedTest {
 
   WebDriver driver = null;
   LoginPage loginPage = null;
@@ -31,13 +26,9 @@ public class LoginTest {
   }
 
   @Test
-  public void successfulLoginTest() {
+  public void failedTest() {
     homePage.navigateTo();
-    loginPage.enterUserName("NataliiaMichkina");
-    loginPage.enterPassword("NataliiaMichkina");
-    loginPage.clickLogin();
-
-    assertTrue(homePage.createButtonPresent());
+    assertEquals(1, 2);
   }
 
   @AfterMethod
