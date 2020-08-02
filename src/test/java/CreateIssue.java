@@ -8,9 +8,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.WebDriverFactory;
-
 import java.time.Duration;
-
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

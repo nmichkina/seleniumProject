@@ -37,6 +37,11 @@ public class HomePage {
     public void navigateTo(){
         driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
     }
+    public void jiraTicketPath(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5).getSeconds());
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("create_link"))).isDisplayed();
+        driver.get("https://jira.hillel.it/browse/WEBINAR-9060");
+    }
 
 
 
