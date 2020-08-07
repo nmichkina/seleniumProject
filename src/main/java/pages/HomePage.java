@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.WebDriverFactory;
-
 import java.time.Duration;
 
 public class HomePage {
