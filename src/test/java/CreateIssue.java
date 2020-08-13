@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.TicketPage;
 import utils.WebDriverFactory;
 import java.time.Duration;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
@@ -18,6 +19,7 @@ public class CreateIssue {
   WebDriver driver = null;
   LoginPage loginPage = null;
   HomePage homePage = null;
+  TicketPage ticketPage = null;
 
   @BeforeMethod
   public void setUp() {
@@ -26,6 +28,7 @@ public class CreateIssue {
     driver = WebDriverFactory.getDriver();
     loginPage = new LoginPage(driver);
     homePage = new HomePage(driver);
+    ticketPage = new TicketPage(driver);
   }
 
 
@@ -35,58 +38,22 @@ public class CreateIssue {
     loginPage.enterUserName("NataliiaMichkina");
     loginPage.enterPassword("NataliiaMichkina");
     loginPage.clickLogin();
+    assertTrue(homePage.userIconIsPresent());
 
-    // Explicit Wait for element to appear
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30).getSeconds());
-    boolean elementIsPresent = wait.until(presenceOfElementLocated(By.id("create_link"))).isEnabled();
-    assertEquals(elementIsPresent, true);
+    ticketPage.createButtonClick();
 
-    try {
-      Thread.sleep(3000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    ticketPage.enterProjectName("Webinar (WEBINAR)");
 
-    driver.findElement(By.id("create_link")).click();
+    ticketPage.enterIssueType("task");
 
+    ticketPage.enterSummary("Some summary");
+    ticketPage.enterReporter("NataliiaMichkina");
+    ticketPage.clickCreateIssueSubmitButton();
 
-    wait.until(presenceOfElementLocated(By.id("project-field"))).isDisplayed();
-    driver.findElement(By.id("project-field")).clear();
-    driver.findElement(By.id("project-field")).sendKeys("Webinar (WEBINAR)");
-    driver.findElement(By.id("project-field")).sendKeys(Keys.TAB);
-
-    try {
-      Thread.sleep(3000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
-    driver.findElement(By.id("issuetype-field")).clear();
-    driver.findElement(By.id("issuetype-field")).sendKeys("task");
-    driver.findElement(By.id("issuetype-field")).sendKeys(Keys.TAB);
-
-    try {
-      Thread.sleep(3000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
-    driver.findElement(By.id("summary")).sendKeys("Some summary1");
-    driver.findElement(By.id("reporter-field")).clear();
-    driver.findElement(By.id("reporter-field")).sendKeys("NataliiaMichkina");
-    driver.findElement(By.id("reporter-field")).sendKeys(Keys.TAB);
-    driver.findElement(By.id("create-issue-submit")).click();
-
-
-    // Explicit Wait for element to appear
-    wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
-    boolean popUpIsPresent = wait.until(presenceOfElementLocated(By.className("aui-message-success"))).isDisplayed();
-    assertEquals(popUpIsPresent, true);
-
-    boolean titleIsPresent = wait.until(presenceOfElementLocated(By.xpath("//*[contains(text(), 'WEBINAR')]"))).isDisplayed();
-    assertEquals(titleIsPresent,true);
-
-    //aui-flag-container
+    ticketPage.createIsueSuccessMessagePresent();
+    assertTrue(ticketPage.createIsueSuccessMessagePresent());
+    ticketPage.popupTitleIsPresent();
+    assertTrue(ticketPage.popupTitleIsPresent());
   }
 
   @AfterMethod

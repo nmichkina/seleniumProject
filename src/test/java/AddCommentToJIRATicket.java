@@ -36,7 +36,7 @@ public class AddCommentToJIRATicket {
     loginPage.enterPassword("NataliiaMichkina");
     loginPage.clickLogin();
 
-    assertTrue(homePage.createButtonPresent());
+    assertTrue(homePage.userIconIsPresent());
 
     ticketPage.navigateTo();
     ticketPage.clickFooterCommentButton();

@@ -41,6 +41,3 @@ public class ViewJIRATicket {
     driver.quit();
   }
 }
-
-//WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30).getSeconds());
-//    boolean elementIsPresent = wait.until(elementToBeClickable(By.id("create_link"))).isEnabled();

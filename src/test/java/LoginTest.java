@@ -35,7 +35,7 @@ public class LoginTest {
     loginPage.enterPassword("NataliiaMichkina");
     loginPage.clickLogin();
 
-    assertTrue(homePage.createButtonPresent());
+    assertTrue(homePage.userIconIsPresent());
   }
 
   @AfterMethod
