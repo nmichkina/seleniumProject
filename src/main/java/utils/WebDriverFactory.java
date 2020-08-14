@@ -52,8 +52,6 @@ public class WebDriverFactory {
     }
 
     driver.manage().window().maximize();
-    // Implicit Wait. Will wait constant amount of time for every element.
-  //  driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
 
     // Simulate slow network speed - network throttle
 
