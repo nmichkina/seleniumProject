@@ -2,8 +2,11 @@
 <suite name="Sample Test Suite" parallel="false">
 
     <test name="Sample Test">
+<!--        <parameter name="waitTimeOutInSeconds" value="10"></parameter>-->
+        <parameter name="browserName" value="Chrome"></parameter>
+
         <classes>
-            <class name="SampleTestClass"/>
+            <class name="LoginTest"/>
         </classes>
     </test>
 

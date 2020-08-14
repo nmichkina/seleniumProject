@@ -36,5 +36,10 @@ public class LoginPage {
     public void clickLogin(){
         driver.findElement(loginButton).click();
     }
+    public boolean errorMessageIsPresent(String message){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds());
+        return wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//p[contains(text(),'"+message+"')]"))).isDisplayed();
+        //return driver.findElement(By.xpath("//p[contains(text(),'"+message+"')]")).isDisplayed();
+    }
 
 }

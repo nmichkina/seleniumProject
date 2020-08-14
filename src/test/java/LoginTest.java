@@ -2,9 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.WebDriverFactory;
@@ -19,8 +17,9 @@ public class LoginTest {
   LoginPage loginPage = null;
   HomePage homePage = null;
 
+  @Parameters("browserName")
   @BeforeMethod
-  public void setUp() {
+  public void setUp(String browserName) {
     // любой Java Code
     WebDriverFactory.createInstance("Chrome");
     driver = WebDriverFactory.getDriver();
@@ -28,8 +27,26 @@ public class LoginTest {
     homePage = new HomePage(driver);
   }
 
+  @DataProvider(name = "Logins")
+  public Object[][] createData1(){
+          return new Object[][]{
+                  {"NataliiaMichkina","wrongPassword","Извините, имя пользователя или пароль неверны - пожалуйста, попробуйте еще раз."},
+                  {"wrongUserName","NataliiaMichkina","Извините, имя пользователя или пароль неверны - пожалуйста, попробуйте еще раз."},
+          };
+  }
+
+  @Test(dataProvider = "Logins")
+  public void unsuccessfulLoginTest(String name, String password, String expectedResult) throws InterruptedException {
+    homePage.navigateTo();
+    loginPage.enterUserName(name);
+    loginPage.enterPassword(password);
+    loginPage.clickLogin();
+
+    assertTrue(loginPage.errorMessageIsPresent(expectedResult));
+  }
+
   @Test
-  public void successfulLoginTest() {
+  public void successfulLoginTest(){
     homePage.navigateTo();
     loginPage.enterUserName("NataliiaMichkina");
     loginPage.enterPassword("NataliiaMichkina");
@@ -37,7 +54,6 @@ public class LoginTest {
 
     assertTrue(homePage.userIconIsPresent());
   }
-
   @AfterMethod
 
   public void tearDown() { driver.quit();
