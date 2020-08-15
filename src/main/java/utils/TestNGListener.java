@@ -19,11 +19,12 @@ public class TestNGListener implements ITestListener {
   public void onTestStart(ITestResult result) {
     String browserName = result.getTestContext().getCurrentXmlTest().getParameter("browserName");
     System.out.println("Browser name is: " + browserName);
-
+    //System.out.println("OnTestStart");
   }
 
   @Override
   public void onTestSuccess(ITestResult result) {
+    //System.out.println("OnTestSuccess");
 
   }
 
@@ -44,6 +45,7 @@ public class TestNGListener implements ITestListener {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    //System.out.println("OnTestFailure");
   }
 
   @Override
@@ -58,12 +60,12 @@ public class TestNGListener implements ITestListener {
 
   @Override
   public void onStart(ITestContext context) {
-
+    //System.out.println("OnStart");
   }
 
   @Override
   public void onFinish(ITestContext context) {
-
+    //System.out.println("OnTestFinish");
   }
 
   private File captureScreenshot() {
