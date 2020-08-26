@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -19,7 +20,9 @@ public class HomePage {
     }
 
     public void navigateToHomePage() {
-            driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
+        driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
+        driver.manage().addCookie(new Cookie("JSESSIONID", "A108A996D4F5234D1904ADECD27ACB16"));
+        driver.navigate().refresh();
     }
 
     public boolean isUserIconDisplayed() {

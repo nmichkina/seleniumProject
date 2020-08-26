@@ -21,10 +21,10 @@ public class TestClass {
     private JiraTicketPage jiraTicketPage;
     private CreateIssueWindow createIssueWindow;
 
-    @Parameters({"browserName"})
+//    @Parameters({"browserName"})
     @BeforeMethod()
-    public void setUp(String browserName) {
-        WebDriverFactory.createInstance(browserName);
+    public void setUp() {
+        WebDriverFactory.createInstance("Chrome");
         driver = WebDriverFactory.getDriver();
         loginPage = new LoginPage(driver);
         homePage = new HomePage(driver);
@@ -73,11 +73,14 @@ public class TestClass {
 
     @Test
     public void createIssue() {
-        homePage.navigateToHomePage();
-        loginPage.enterUserName("VyacheslavArtyomenko");
-        loginPage.enterPassword("VyacheslavArtyomenko");
-        loginPage.clickLoginButton();
+//        homePage.navigateToHomePage();
+//        loginPage.enterUserName("VyacheslavArtyomenko");
+//        loginPage.enterPassword("VyacheslavArtyomenko");
+//        loginPage.clickLoginButton();
 
+
+
+        homePage.navigateToHomePage();
         homePage.clickCreateIssue();
 
         createIssueWindow.isProjectFieldDisplayed();
