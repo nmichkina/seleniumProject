@@ -1,7 +1,8 @@
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pages.HomePage;
-import pages.LoginPage;
+import pages.LoginPageFinmarket;
+import pages.HomePageFinmarket;
 import utils.WebDriverFactory;
 
 import static org.testng.Assert.assertTrue;
@@ -9,8 +10,8 @@ import static org.testng.Assert.assertTrue;
 public class LoginTestFinmarket {
 
   WebDriver driver = null;
-  LoginPage loginPage = null;
-  HomePage homePage = null;
+  LoginPageFinmarket loginPageFinmarket = null;
+  HomePageFinmarket homePageFinmarket = null;
 
   @Parameters("browserName")
   @BeforeMethod
@@ -18,36 +19,38 @@ public class LoginTestFinmarket {
     // любой Java Code
     WebDriverFactory.createInstance("Chrome");
     driver = WebDriverFactory.getDriver();
-    loginPage = new LoginPage(driver);
-    homePage = new HomePage(driver);
+    loginPageFinmarket = new LoginPageFinmarket(driver);
+    homePageFinmarket = new HomePageFinmarket(driver);
   }
 
-  @DataProvider(name = "Logins")
-  public Object[][] createData1(){
-          return new Object[][]{
-                  {"NataliiaMichkina","wrongPassword","Извините, имя пользователя или пароль неверны - пожалуйста, попробуйте еще раз."},
-                  {"wrongUserName","NataliiaMichkina","Извините, имя пользователя или пароль неверны - пожалуйста, попробуйте еще раз."},
-          };
-  }
+//  @DataProvider(name = "Logins")
+//  public Object[][] createData1(){
+//          return new Object[][]{
+//                  {"NataliiaMichkina","wrongPassword","Извините, имя пользователя или пароль неверны - пожалуйста, попробуйте еще раз."},
+//                  {"wrongUserName","NataliiaMichkina","Извините, имя пользователя или пароль неверны - пожалуйста, попробуйте еще раз."},
+//          };
+//  }
 
-  @Test(dataProvider = "Logins")
-  public void unsuccessfulLoginTest(String name, String password, String expectedResult) throws InterruptedException {
-    homePage.navigateTo();
-    loginPage.enterUserName(name);
-    loginPage.enterPassword(password);
-    loginPage.clickLogin();
-
-    assertTrue(loginPage.errorMessageIsPresent(expectedResult));
-  }
+//  @Test(dataProvider = "Logins")
+//  public void unsuccessfulLoginTest(String name, String password) throws InterruptedException {
+//    homePageFinmarket.navigateTo();
+//    loginPageFinmarket.LoginButtonClick();
+//    loginPageFinmarket.enterUserName(name);
+//    loginPageFinmarket.enterPassword(password);
+//    loginPageFinmarket.clickSubmitLogin();
+//
+//    assertTrue(loginPageFinmarket.depositButtonIsPresent());
+//  }
 
   @Test
   public void successfulLoginTest(){
-    homePage.navigateTo();
-    loginPage.enterUserName("NataliiaMichkina");
-    loginPage.enterPassword("NataliiaMichkina");
-    loginPage.clickLogin();
+    homePageFinmarket.navigateTo();
+    loginPageFinmarket.LoginButtonClick();
+    loginPageFinmarket.enterUserName("nataliia.m@pandats.com");
+    loginPageFinmarket.enterPassword("6127951Mn");
+    loginPageFinmarket.clickSubmitLogin();
 
-    assertTrue(homePage.userIconIsPresent());
+    assertTrue(loginPageFinmarket.depositButtonIsPresent());
   }
   @AfterMethod
 
